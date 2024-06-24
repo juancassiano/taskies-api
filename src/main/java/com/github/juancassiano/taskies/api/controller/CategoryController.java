@@ -1,4 +1,4 @@
-package com.github.juancassiano.taskies.controller;
+package com.github.juancassiano.taskies.api.controller;
 
 import org.springframework.web.bind.annotation.RestController;
 
