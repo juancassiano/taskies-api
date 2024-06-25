@@ -8,6 +8,8 @@ import com.github.juancassiano.taskies.api.mapper.CategoryMapper;
 import com.github.juancassiano.taskies.domain.entity.CategoryEntity;
 import com.github.juancassiano.taskies.domain.service.CategoryService;
 
+import jakarta.validation.Valid;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -49,14 +51,14 @@ public class CategoryController {
     
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
-    public CategoryDTO createCategory(@RequestBody CategoryInputDTO categoryInputDTO) {
+    public CategoryDTO createCategory(@RequestBody @Valid CategoryInputDTO categoryInputDTO) {
         CategoryEntity category = categoryMapper.toDomainCategory(categoryInputDTO);
         category = categoryService.createCategory(category);
         return categoryMapper.toCategoryDTO(category);
     }
 
     @PutMapping("/{id}")
-    public CategoryDTO updateCategory(@PathVariable Long id, @RequestBody CategoryInputDTO categoryInputDTO) {
+    public CategoryDTO updateCategory(@PathVariable Long id, @RequestBody @Valid CategoryInputDTO categoryInputDTO) {
         CategoryEntity categoryAtual = categoryService.findCategoryById(id);
         categoryMapper.copyToDomainCategory(categoryInputDTO, categoryAtual);
         categoryAtual = categoryService.updateCategory(categoryAtual);
