@@ -1,4 +1,4 @@
-package com.github.juancassiano.taskies.api.dto;
+package com.github.juancassiano.taskies.api.dto.model;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -9,4 +9,5 @@ import java.util.List;
 public class CategoryDTO {
   private Long id;
   private String name;
+  private List<TaskDTO> tasks;
 }

@@ -2,8 +2,8 @@ package com.github.juancassiano.taskies.api.controller;
 
 import org.springframework.web.bind.annotation.*;
 
-import com.github.juancassiano.taskies.api.dto.TaskDTO;
 import com.github.juancassiano.taskies.api.dto.input.TaskInputDTO;
+import com.github.juancassiano.taskies.api.dto.model.TaskDTO;
 import com.github.juancassiano.taskies.api.mapper.TaskMapper;
 import com.github.juancassiano.taskies.domain.entity.TaskEntity;
 import com.github.juancassiano.taskies.domain.service.TaskService;

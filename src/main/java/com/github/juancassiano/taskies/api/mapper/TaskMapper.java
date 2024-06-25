@@ -7,8 +7,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.github.juancassiano.taskies.api.dto.TaskDTO;
 import com.github.juancassiano.taskies.api.dto.input.TaskInputDTO;
+import com.github.juancassiano.taskies.api.dto.model.TaskDTO;
 import com.github.juancassiano.taskies.domain.entity.CategoryEntity;
 import com.github.juancassiano.taskies.domain.entity.TaskEntity;
 import com.github.juancassiano.taskies.domain.exception.CategoryNotFoundException;

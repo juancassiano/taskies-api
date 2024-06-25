@@ -2,8 +2,9 @@ package com.github.juancassiano.taskies.api.controller;
 
 import org.springframework.web.bind.annotation.RestController;
 
-import com.github.juancassiano.taskies.api.dto.CategoryDTO;
 import com.github.juancassiano.taskies.api.dto.input.CategoryInputDTO;
+import com.github.juancassiano.taskies.api.dto.model.CategoryDTO;
+import com.github.juancassiano.taskies.api.dto.model.CreateCategoryDTO;
 import com.github.juancassiano.taskies.api.mapper.CategoryMapper;
 import com.github.juancassiano.taskies.domain.entity.CategoryEntity;
 import com.github.juancassiano.taskies.domain.service.CategoryService;
@@ -51,10 +52,10 @@ public class CategoryController {
     
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
-    public CategoryDTO createCategory(@RequestBody @Valid CategoryInputDTO categoryInputDTO) {
+    public CreateCategoryDTO createCategory(@RequestBody @Valid CategoryInputDTO categoryInputDTO) {
         CategoryEntity category = categoryMapper.toDomainCategory(categoryInputDTO);
         category = categoryService.createCategory(category);
-        return categoryMapper.toCategoryDTO(category);
+        return categoryMapper.toCreateCategoryDTO(category);
     }
 
     @PutMapping("/{id}")

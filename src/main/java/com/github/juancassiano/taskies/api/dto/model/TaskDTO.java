@@ -1,4 +1,4 @@
-package com.github.juancassiano.taskies.api.dto;
+package com.github.juancassiano.taskies.api.dto.model;
 
 import lombok.Getter;
 import lombok.Setter;
