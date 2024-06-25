@@ -15,12 +15,14 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "task")
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class TaskEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,7 +42,6 @@ public class TaskEntity {
     @JoinColumn(name = "category_id")
     private CategoryEntity category;
 
-    @NotBlank
     private Boolean done = Boolean.FALSE;
 
     @PrePersist

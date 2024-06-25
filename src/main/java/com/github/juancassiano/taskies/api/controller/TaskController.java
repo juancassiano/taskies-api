@@ -7,6 +7,9 @@ import com.github.juancassiano.taskies.api.dto.input.TaskInputDTO;
 import com.github.juancassiano.taskies.api.mapper.TaskMapper;
 import com.github.juancassiano.taskies.domain.entity.TaskEntity;
 import com.github.juancassiano.taskies.domain.service.TaskService;
+
+import jakarta.validation.Valid;
+
 import org.springframework.http.HttpStatus;
 
 import java.util.List;
@@ -39,14 +42,14 @@ public class TaskController {
 
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
-  public TaskDTO createTask(@RequestBody TaskInputDTO taskInputDTO) {
-    TaskEntity taskEntity = taskMapper.toDomainTask(taskInputDTO);
-    taskEntity = taskService.createTask(taskEntity);
-    return taskMapper.toTaskDTO(taskEntity);
+  public TaskDTO createTask(@RequestBody @Valid TaskInputDTO taskInputDTO) {
+      TaskEntity newTask = taskMapper.toDomainTask(taskInputDTO);
+      newTask = taskService.createTask(newTask);
+      return taskMapper.toTaskDTO(newTask);
   }
 
   @PutMapping("/{id}")
-  public TaskDTO updateTask(@PathVariable Long id, @RequestBody TaskInputDTO taskInputDTO) {
+  public TaskDTO updateTask(@PathVariable Long id, @RequestBody @Valid TaskInputDTO taskInputDTO) {
     TaskEntity taskAtual = taskService.findTaskById(id);
     taskMapper.copyToDomainTask(taskInputDTO, taskAtual);
     taskAtual = taskService.updateTask(taskAtual);

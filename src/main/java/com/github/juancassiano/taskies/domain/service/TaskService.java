@@ -6,9 +6,12 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
+import com.github.juancassiano.taskies.domain.entity.CategoryEntity;
 import com.github.juancassiano.taskies.domain.entity.TaskEntity;
+import com.github.juancassiano.taskies.domain.exception.CategoryNotFoundException;
 import com.github.juancassiano.taskies.domain.exception.EntityInUseException;
 import com.github.juancassiano.taskies.domain.exception.TaskNotFoundException;
+import com.github.juancassiano.taskies.domain.repository.CategoryRepository;
 import com.github.juancassiano.taskies.domain.repository.TaskRepository;
 
 import jakarta.transaction.Transactional;
@@ -16,17 +19,28 @@ import jakarta.transaction.Transactional;
 @Service
 public class TaskService {
   private TaskRepository taskRepository;
+  private CategoryRepository categoryRepository;
 
   String MSG_TASK_IN_USE = "Task com ID %d não pode ser removida pois está em uso";
 
 
-  public TaskService(TaskRepository taskRepository) {
+  public TaskService(TaskRepository taskRepository, CategoryRepository categoryRepository) {
     this.taskRepository = taskRepository;
+    this.categoryRepository = categoryRepository;
   }
 
   @Transactional
   public TaskEntity createTask(TaskEntity task) {
-    return taskRepository.save(task);
+    Long categoryId = task.getCategory().getId();
+    CategoryEntity category = categoryRepository.findById(categoryId)
+            .orElseThrow(() -> new CategoryNotFoundException(categoryId));
+    
+    TaskEntity taskCreated = new TaskEntity();
+    taskCreated.setName(task.getName());
+    taskCreated.setDescription(task.getDescription());
+    taskCreated.setCategory(category);
+    
+    return taskRepository.save(taskCreated);  
   }
 
   @Transactional
