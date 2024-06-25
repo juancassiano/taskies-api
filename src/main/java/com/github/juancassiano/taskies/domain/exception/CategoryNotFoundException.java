@@ -4,7 +4,7 @@ public class CategoryNotFoundException extends RuntimeException{
   public CategoryNotFoundException(String message) {
     super(message);
   }
-  public CategoryNotFoundException(String message, Throwable cause) {
-    super(message, cause);
+  public CategoryNotFoundException(Long categoryId) {
+    super(String.format("Não existe category com o ID %d", categoryId));
   }
 }
