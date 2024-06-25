@@ -9,7 +9,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -27,8 +26,7 @@ public class CategoryEntity {
     @EqualsAndHashCode.Include
     private Long id;
     
-    @NotBlank
-    @Column(unique = true)
+    @Column(nullable = false, unique = true)
     private String name;
     
     @OneToMany(mappedBy = "category")

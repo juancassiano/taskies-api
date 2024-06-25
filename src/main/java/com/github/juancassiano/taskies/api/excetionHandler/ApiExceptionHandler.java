@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class ApiExceptionHandler {
     @Autowired
     private MessageSource messageSource;
+    
     URI path = URI.create("http://localhost:8080/errors");
   
     @ExceptionHandler(TaskNotFoundException.class)

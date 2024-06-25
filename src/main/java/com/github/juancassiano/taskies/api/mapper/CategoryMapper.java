@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.github.juancassiano.taskies.api.dto.input.CategoryInputDTO;
-import com.github.juancassiano.taskies.api.dto.model.CategoryDTO;
+import com.github.juancassiano.taskies.api.dto.model.CategoryListDTO;
 import com.github.juancassiano.taskies.api.dto.model.CreateCategoryDTO;
 import com.github.juancassiano.taskies.domain.entity.CategoryEntity;
 
@@ -26,15 +26,15 @@ public class CategoryMapper {
     modelMapper.map(categoryEntity, categoryEntity);
   }
 
-  public CategoryDTO toCategoryDTO(CategoryEntity categoryEntity){
-    return modelMapper.map(categoryEntity, CategoryDTO.class);
+  public CategoryListDTO toCategoryDTO(CategoryEntity categoryEntity){
+    return modelMapper.map(categoryEntity, CategoryListDTO.class);
   }
 
   public CreateCategoryDTO toCreateCategoryDTO(CategoryEntity categoryEntity){
     return modelMapper.map(categoryEntity, CreateCategoryDTO.class);
   }
 
-  public List<CategoryDTO> toCategoryDTOList(List<CategoryEntity> categoryEntityList){
+  public List<CategoryListDTO> toCategoryDTOList(List<CategoryEntity> categoryEntityList){
     return categoryEntityList.stream()
       .map(this::toCategoryDTO)
       .collect(Collectors.toList());
