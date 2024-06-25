@@ -7,6 +7,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class CategoryInputDTO {
-  @NotNull
+  @NotNull(message = "{nome.obrigatorio}")
   private String name;
 }

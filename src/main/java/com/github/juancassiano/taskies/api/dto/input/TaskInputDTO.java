@@ -7,9 +7,9 @@ import lombok.Setter;
 @Getter
 @Setter
 public class TaskInputDTO {
-  @NotNull
+  @NotNull(message = "{nome.obrigatorio}")
   private String name; 
   private String description;
-  @NotNull
+  @NotNull(message = "{categoriaId.obrigatorio}")
   private Long categoryId;
 }
