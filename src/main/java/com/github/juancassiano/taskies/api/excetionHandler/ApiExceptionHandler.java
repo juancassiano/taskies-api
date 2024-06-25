@@ -19,6 +19,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.github.juancassiano.taskies.domain.exception.CategoryNotFoundException;
+import com.github.juancassiano.taskies.domain.exception.EntityInUseException;
 import com.github.juancassiano.taskies.domain.exception.TaskNotFoundException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -39,6 +40,21 @@ public class ApiExceptionHandler {
         problemDetail.setInstance(URI.create("/task-not-found"));
         problemDetail.setTitle(exception.getMessage());
         problemDetail.setProperty("descricao", "Essa Task não foi encontrada ou não existe");
+        problemDetail.setProperty("timestamp", Instant.now());
+        problemDetail.setType(path);
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(problemDetail);
+    }
+
+    @ExceptionHandler(EntityInUseException.class)
+    private ResponseEntity<ProblemDetail> handleEntityInUseException(EntityInUseException exception){
+        StringWriter sw = new StringWriter();
+        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(
+                HttpStatus.NOT_FOUND,sw.toString()
+        );
+        problemDetail.setInstance(URI.create("/entity-in-use"));
+        problemDetail.setTitle(exception.getMessage());
+        problemDetail.setProperty("descricao", "Essa Entidade está em uso");
         problemDetail.setProperty("timestamp", Instant.now());
         problemDetail.setType(path);
 

@@ -17,6 +17,7 @@ import jakarta.transaction.Transactional;
 @Service
 public class CategoryService{
   String MSG_CATEGORY_IN_USE = "Task com ID %d não pode ser removida pois está em uso";
+  String CATEGORY_ALREADY_EXISTS = "Category with name %s already exists";
   
   private CategoryRepository categoryRepository;
 
@@ -26,6 +27,9 @@ public class CategoryService{
 
   @Transactional
   public CategoryEntity createCategory(CategoryEntity category) {
+    categoryRepository.findByName(category.getName()).ifPresent(categoryEntity -> {
+      throw new EntityInUseException(String.format(CATEGORY_ALREADY_EXISTS, category.getName()));
+    });
     return categoryRepository.save(category);
   }
 
