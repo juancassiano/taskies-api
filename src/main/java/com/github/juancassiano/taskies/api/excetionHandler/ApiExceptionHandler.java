@@ -50,7 +50,7 @@ public class ApiExceptionHandler {
     private ResponseEntity<ProblemDetail> handleEntityInUseException(EntityInUseException exception){
         StringWriter sw = new StringWriter();
         ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(
-                HttpStatus.NOT_FOUND,sw.toString()
+                HttpStatus.BAD_REQUEST,sw.toString()
         );
         problemDetail.setInstance(URI.create("/entity-in-use"));
         problemDetail.setTitle(exception.getMessage());
