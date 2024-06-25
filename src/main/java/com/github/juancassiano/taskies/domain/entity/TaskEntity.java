@@ -54,4 +54,11 @@ public class TaskEntity {
     private void onUpdate(){
       this.updated_at = LocalDate.now();
     }
+
+    public void isDone(){
+      this.done = Boolean.TRUE;
+    }
+    public void isNotDone(){
+      this.done = Boolean.FALSE;
+    }
 }

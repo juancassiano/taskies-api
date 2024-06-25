@@ -87,5 +87,16 @@ public class TaskService {
   public List<TaskEntity> findTasksByDoneFalse() {
       return taskRepository.findByDoneFalse();
   }
+
+  @Transactional
+  public void isDone(Long id) {
+    TaskEntity task = findTaskById(id);
+    task.isDone();
+  }
+  @Transactional
+  public void isNotDone(Long id) {
+    TaskEntity task = findTaskById(id);
+    task.isNotDone();
+  }
   
 }
