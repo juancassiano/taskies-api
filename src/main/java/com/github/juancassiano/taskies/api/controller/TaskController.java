@@ -13,9 +13,6 @@ import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 
 import java.util.List;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.PathVariable;
 
 
 @RestController
@@ -33,8 +30,15 @@ public class TaskController {
 
   //TODO: Implementar filtro Done
   @GetMapping
-  public List<TaskDTO> getAllTasks() {
-    List<TaskEntity> tasks = taskService.findAllTasks();
+  public List<TaskDTO> getAllTasks(@RequestParam(required = false) Boolean done){
+    List<TaskEntity> tasks;
+    if (done == null) {
+      tasks = taskService.findAllTasks();
+    } else if (done) {
+      tasks = taskService.findTasksByDoneTrue();
+    } else {
+      tasks = taskService.findTasksByDoneFalse();
+    }
     return taskMapper.toTaskDTOList(tasks);
   }
 
