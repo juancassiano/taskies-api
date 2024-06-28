@@ -28,7 +28,6 @@ public class TaskController {
     this.taskMapper = taskMapper;
   }
 
-  //TODO: Implementar filtro Done
   @GetMapping
   public List<TaskDTO> getAllTasks(@RequestParam(required = false) Boolean done){
     List<TaskEntity> tasks;
