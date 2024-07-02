@@ -9,5 +9,5 @@ import java.util.List;
 public class CategoryListDTO {
   private Long id;
   private String name;
-  private List<TaskDTO> tasks;
+  private List<UserDTO> tasks;
 }

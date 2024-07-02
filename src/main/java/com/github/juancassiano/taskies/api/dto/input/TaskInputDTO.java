@@ -13,4 +13,5 @@ public class TaskInputDTO {
   private String description;
   @NotNull(message = "{categoriaId.obrigatorio}")
   private Long categoryId;
+
 }

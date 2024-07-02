@@ -32,7 +32,7 @@ public class TaskMapper {
   }
 
   public void copyToDomainTask(TaskInputDTO taskInputDTO, TaskEntity taskEntity){
-    modelMapper.map(taskEntity, taskEntity);
+    modelMapper.map(taskInputDTO, taskEntity);
   }
 
   public TaskDTO toTaskDTO(TaskEntity taskEntity){

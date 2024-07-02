@@ -23,7 +23,7 @@ public class CategoryMapper {
   }
 
   public void copyToDomainCategory(CategoryInputDTO categoryInputDTO, CategoryEntity categoryEntity){
-    modelMapper.map(categoryEntity, categoryEntity);
+    modelMapper.map(categoryInputDTO, categoryEntity);
   }
 
   public CategoryListDTO toCategoryDTO(CategoryEntity categoryEntity){
