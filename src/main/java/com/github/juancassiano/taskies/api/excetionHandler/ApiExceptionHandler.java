@@ -21,6 +21,9 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import com.github.juancassiano.taskies.domain.exception.CategoryNotFoundException;
 import com.github.juancassiano.taskies.domain.exception.EntityInUseException;
 import com.github.juancassiano.taskies.domain.exception.TaskNotFoundException;
+import com.github.juancassiano.taskies.domain.exception.UserAlreadyExistsException;
+import com.github.juancassiano.taskies.domain.exception.UsernameNotFoundException;
+
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 
@@ -70,6 +73,36 @@ public class ApiExceptionHandler {
         problemDetail.setInstance(URI.create("/category-not-found"));
         problemDetail.setTitle(exception.getMessage());
         problemDetail.setProperty("descricao", "Essa Categoria não foi encontrada ou não existe");
+        problemDetail.setProperty("timestamp", Instant.now());
+        problemDetail.setType(path);
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(problemDetail);
+    }
+
+    @ExceptionHandler(UserAlreadyExistsException.class)
+    private ResponseEntity<ProblemDetail> handleUserAlreadyExistsException(UserAlreadyExistsException exception){
+        StringWriter sw = new StringWriter();
+        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(
+                HttpStatus.NOT_FOUND,sw.toString()
+        );
+        problemDetail.setInstance(URI.create("/user-already-exist"));
+        problemDetail.setTitle(exception.getMessage());
+        problemDetail.setProperty("descricao", "Esse usuário já existe");
+        problemDetail.setProperty("timestamp", Instant.now());
+        problemDetail.setType(path);
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(problemDetail);
+    }
+
+    @ExceptionHandler(UsernameNotFoundException.class)
+    private ResponseEntity<ProblemDetail> handleUserNotFoundException(UsernameNotFoundException exception){
+        StringWriter sw = new StringWriter();
+        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(
+                HttpStatus.NOT_FOUND,sw.toString()
+        );
+        problemDetail.setInstance(URI.create("/user-not-found"));
+        problemDetail.setTitle(exception.getMessage());
+        problemDetail.setProperty("descricao", "Esse usuário já existe");
         problemDetail.setProperty("timestamp", Instant.now());
         problemDetail.setType(path);
 
