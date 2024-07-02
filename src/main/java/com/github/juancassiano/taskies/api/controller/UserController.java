@@ -1,7 +1,10 @@
 package com.github.juancassiano.taskies.api.controller;
 
+import java.util.List;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
@@ -9,14 +12,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.github.juancassiano.taskies.api.dto.input.UserInputDTO;
 import com.github.juancassiano.taskies.api.dto.model.UserDTO;
 import com.github.juancassiano.taskies.api.mapper.UserMapper;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-
-
 import com.github.juancassiano.taskies.domain.entity.UserEntity;
 import com.github.juancassiano.taskies.domain.service.UserService;
 
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import jakarta.validation.Valid;
 
 
@@ -39,4 +37,10 @@ public class UserController {
       user = userService.createUser(user);
       return userMapper.toUserDTO(user);
     }
-}
+
+    @GetMapping()
+    public List<UserDTO> listUsers() {
+        List<UserEntity> users = userService.findAll();
+        return userMapper.toUserDTOList(users);
+    }
+  }

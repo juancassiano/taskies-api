@@ -51,7 +51,8 @@ PUT http://localhost:8080/tasks/{{taskId}}/done
 ###
 PUT http://localhost:8080/tasks/{{taskId}}/undone
 
-
+###
+GET http://localhost:8080/users
 ###
 POST http://localhost:8080/users
 content-type: application/json
@@ -61,4 +62,13 @@ content-type: application/json
   "email": "joao@email.com",
   "password": "123456",
   "username": "joao"
+}
+
+###
+POST http://localhost:8080/login
+Content-Type: application/json
+
+{
+  "username": "joao",
+  "password": "123456"
 }

@@ -3,6 +3,7 @@ package com.github.juancassiano.taskies.domain.entity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.github.juancassiano.taskies.api.dto.input.UserInputDTO;
+import com.github.juancassiano.taskies.api.dto.input.UserLoginInputDTO;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -35,7 +36,7 @@ public class UserEntity {
     @Column(nullable = false, unique = true)
     private String username;
 
-    public boolean isLoginCorrect(UserInputDTO userInputDTO, PasswordEncoder passwordEncoder) {
-        return passwordEncoder.matches(userInputDTO.getPassword(), this.password);
+    public boolean isLoginCorrect(UserLoginInputDTO userLoginInputDTO, PasswordEncoder passwordEncoder) {
+        return passwordEncoder.matches(userLoginInputDTO.getPassword(), this.password);
     }
 }

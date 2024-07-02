@@ -8,6 +8,8 @@ import com.github.juancassiano.taskies.domain.exception.UserAlreadyExistsExcepti
 import com.github.juancassiano.taskies.domain.exception.UsernameNotFoundException;
 import com.github.juancassiano.taskies.domain.repository.UserRepository;
 
+import java.util.List; // Add this import statement
+
 import jakarta.transaction.Transactional;
 
 @Service
@@ -21,6 +23,10 @@ public class UserService {
     this.passwordEncoder = passwordEncoder;
   }
 
+  public List<UserEntity> findAll() {
+    return userRepository.findAll();
+  }
+  
   public UserEntity findByUsername(String username) {
     return userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException(username));
   }

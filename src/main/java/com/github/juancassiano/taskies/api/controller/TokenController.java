@@ -1,6 +1,5 @@
 package com.github.juancassiano.taskies.api.controller;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.jwt.JwtClaimsSet;
@@ -8,13 +7,12 @@ import org.springframework.security.oauth2.jwt.JwtEncoder;
 import org.springframework.security.oauth2.jwt.JwtEncoderParameters;
 import org.springframework.web.bind.annotation.*;
 
-import com.github.juancassiano.taskies.api.dto.input.UserInputDTO;
-import com.github.juancassiano.taskies.api.dto.model.UserDTO;
+import com.github.juancassiano.taskies.api.dto.input.UserLoginInputDTO;
+import com.github.juancassiano.taskies.api.dto.model.UserLoginDTO;
 import com.github.juancassiano.taskies.api.mapper.UserMapper;
 import com.github.juancassiano.taskies.domain.entity.UserEntity;
 import com.github.juancassiano.taskies.domain.service.UserService;
 
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import java.time.Instant;
 import jakarta.validation.Valid;
 
@@ -35,10 +33,10 @@ public class TokenController {
   }
 
   @PostMapping("")
-  public ResponseEntity<UserDTO> login(@RequestBody @Valid UserInputDTO userInputDTO) {
-    UserEntity user = userService.findByUsername(userInputDTO.getUsername());
+  public UserLoginDTO login(@RequestBody @Valid UserLoginInputDTO userLoginInputDTO) {
+    UserEntity user = userService.findByUsername(userLoginInputDTO.getUsername());
 
-    if (!user.isLoginCorrect(userInputDTO, passwordEncoder)) {
+    if (!user.isLoginCorrect(userLoginInputDTO, passwordEncoder)) {
       throw new BadCredentialsException("User or password is invalid");
     }
 
@@ -54,9 +52,7 @@ public class TokenController {
 
       String jwtValue = jwtEncoder.encode(JwtEncoderParameters.from(claims)).getTokenValue();
       
-      UserDTO userDTO = userMapper.toUserDTO(user);
-      UserDTO.builder().accessToken(jwtValue).expiresIn(expiresIn).build();
-
-      return ResponseEntity.ok(userDTO);
+   
+      return new UserLoginDTO(jwtValue, expiresIn);
     }  
 }
