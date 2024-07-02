@@ -102,7 +102,7 @@ public class ApiExceptionHandler {
         );
         problemDetail.setInstance(URI.create("/user-not-found"));
         problemDetail.setTitle(exception.getMessage());
-        problemDetail.setProperty("descricao", "Esse usuário já existe");
+        problemDetail.setProperty("descricao", "Esse usuário não foi encontrado");
         problemDetail.setProperty("timestamp", Instant.now());
         problemDetail.setType(path);
 

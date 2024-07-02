@@ -40,8 +40,8 @@ public class CategoryController {
 
     @GetMapping()
     public List<CategoryListDTO> getAllCategory() {
-        List<CategoryEntity> tasks = categoryService.findAll();
-        return categoryMapper.toCategoryDTOList(tasks);
+        List<CategoryEntity> categories = categoryService.findAll();
+        return categoryMapper.toCategoryDTOList(categories);
     }
 
     @GetMapping("/{id}")

@@ -3,11 +3,16 @@
 ###
 @taskId = {{ createTask.response.body.id}}
 
+###
+@authenticate = {{ authenticate.response.body.accessToken }}
+
 
 ###
 # @name createCategory
 POST http://localhost:8080/categories
 content-type: application/json
+Authorization: Bearer {{ authenticate.response.body.accessToken }}
+
 
 {
   "name": "Casa"
@@ -15,9 +20,12 @@ content-type: application/json
 
 ###
 GET http://localhost:8080/categories
+Authorization: Bearer {{ authenticate.response.body.accessToken }}
+
 
 ###
 GET http://localhost:8080/categories/{{categoryId}}
+Authorization: Bearer {{ authenticate.response.body.accessToken }}
 
 
 
@@ -25,6 +33,7 @@ GET http://localhost:8080/categories/{{categoryId}}
 # @name createTask
 POST http://localhost:8080/tasks
 content-type: application/json
+Authorization: Bearer {{ authenticate.response.body.accessToken }}
 
 {
   "name": "Limpar a Casa",
@@ -35,24 +44,37 @@ content-type: application/json
 
 ###
 GET http://localhost:8080/tasks/{{taskId}}
+Authorization: Bearer {{ authenticate.response.body.accessToken }}
+
 
 ###
 GET http://localhost:8080/tasks
+Authorization: Bearer {{ authenticate.response.body.accessToken }}
+
 
 ###
 GET http://localhost:8080/tasks?done=true
+Authorization: Bearer {{ authenticate.response.body.accessToken }}
+
 
 ###
 GET http://localhost:8080/tasks?done=false
+Authorization: Bearer {{ authenticate.response.body.accessToken }}
+
 
 ###
 PUT http://localhost:8080/tasks/{{taskId}}/done
+Authorization: Bearer {{ authenticate.response.body.accessToken }}
+
 
 ###
 PUT http://localhost:8080/tasks/{{taskId}}/undone
+Authorization: Bearer {{ authenticate.response.body.accessToken }}
+
 
 ###
 GET http://localhost:8080/users
+
 ###
 POST http://localhost:8080/users
 content-type: application/json
@@ -65,6 +87,7 @@ content-type: application/json
 }
 
 ###
+# @name authenticate
 POST http://localhost:8080/login
 Content-Type: application/json
 

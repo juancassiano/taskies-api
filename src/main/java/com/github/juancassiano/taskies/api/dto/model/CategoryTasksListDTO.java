@@ -2,12 +2,14 @@ package com.github.juancassiano.taskies.api.dto.model;
 
 import lombok.Getter;
 import lombok.Setter;
-import java.util.List;
 
 @Getter
 @Setter
-public class CategoryListDTO {
+public class CategoryTasksListDTO {
+
   private Long id;
   private String name;
-  private List<CategoryTasksListDTO> tasks;
+  private String description;
+  private boolean done;
 }
+
