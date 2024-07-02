@@ -5,6 +5,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import com.github.juancassiano.taskies.api.dto.input.UserInputDTO;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -14,6 +15,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "users")
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@AllArgsConstructor
 public class UserEntity {
 
     @Id
