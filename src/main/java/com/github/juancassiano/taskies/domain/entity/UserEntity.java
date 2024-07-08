@@ -2,7 +2,6 @@ package com.github.juancassiano.taskies.domain.entity;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import com.github.juancassiano.taskies.api.dto.input.UserInputDTO;
 import com.github.juancassiano.taskies.api.dto.input.UserLoginInputDTO;
 
 import jakarta.persistence.*;
