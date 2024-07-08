@@ -1,27 +1,29 @@
-lock tables users write , task write, category write;
+LOCK TABLES users WRITE, task WRITE, category WRITE;
 
-set foreign_key_checks = 0;
+SET foreign_key_checks = 0;
 
-delete from users;
-delete from task;
-delete from category;
+DELETE FROM users;
+DELETE FROM task;
+DELETE FROM category;
 
-set foreign_key_checks = 1;
+SET foreign_key_checks = 1;
 
-alter table users auto_increment = 1;
-alter table task auto_increment = 1;
-alter table category auto_increment = 1;
+ALTER TABLE users AUTO_INCREMENT = 1;
+ALTER TABLE task AUTO_INCREMENT = 1;
+ALTER TABLE category AUTO_INCREMENT = 1;
 
-insert into category (name) values ('Trabalho');
-insert into category (name) values ('Casa');
-insert into category (name) values ('Estudos');
-insert into category (name) values ('Pessoal');
-insert into category (name) values ('Hobbies');
+INSERT INTO users (email, password, name, username) VALUES ('john.doe@example.com', '$$2a$10$hIp7ZnM/l2uq9RHMFEWL1OnGrqmXUbrr2JOarWqZb0MGY7t/6Z696', 'John Doe', 'johndoe');
+INSERT INTO users (email, password, name, username) VALUES ('juancassiano@example.com', '$$2a$10$hIp7ZnM/l2uq9RHMFEWL1OnGrqmXUbrr2JOarWqZb0MGY7t/6Z696', 'Juan Cassiano', 'juancassiano');
+INSERT INTO users (email, password, name, username) VALUES ('emersonmendes@example.com', '$$2a$10$hIp7ZnM/l2uq9RHMFEWL1OnGrqmXUbrr2JOarWqZb0MGY7t/6Z696', 'Emerson Mendes', 'emersonmendes');
 
-insert into users (email, password, name, username) values ('john.doe@example.com', '$2a$10$7QWZfxjt1R/Z0J9YZFmXO.OYmH8Z6PkjJ/rh7N2bJEVKspwKmjY3y', 'John Doe', 'johndoe');
-insert into users (email, password, name, username) values ('juancassiano@example.com', '$2a$10$7QWZfxjt1R/Z0J9YZFmXO.OYmH8Z6PkjJ/rh7N2bJEVKspwKmjY3y', 'Juan Cassiano', 'juancassiano');
-insert into users (email, password, name, username) values ('emersonmendes@example.com', '$2a$10$7QWZfxjt1R/Z0J9YZFmXO.OYmH8Z6PkjJ/rh7N2bJEVKspwKmjY3y', 'Emerson Mendes', 'emersonmendes');
+INSERT INTO category (name, user_id) VALUES ('Trabalho', 1);
+INSERT INTO category (name, user_id) VALUES ('Casa', 1);
+INSERT INTO category (name, user_id) VALUES ('Estudos', 2);
+INSERT INTO category (name, user_id) VALUES ('Pessoal', 2);
+INSERT INTO category (name, user_id) VALUES ('Hobbies', 3);
 
-insert into task (name, description, created_at, updated_at, category_id, done) values ('Finish project', 'Complete the project by the end of the week', '2024-07-01', '2024-07-01', 3, FALSE);
-insert into task (name, description, created_at, updated_at, category_id, done) values ('Grocery shopping', 'Buy groceries for the week', '2024-07-01', '2024-07-01', 2, FALSE);
-insert into task (name, description, created_at, updated_at, category_id, done) values ('Learn guitar', 'Practice guitar lessons', '2024-07-01', '2024-07-01', 5, FALSE);
+INSERT INTO task (name, description, created_at, updated_at, category_id, user_id, done) VALUES ('Finish project', 'Complete the project by the end of the week', '2024-07-01', '2024-07-01', 3, 1, 0);
+INSERT INTO task (name, description, created_at, updated_at, category_id, user_id, done) VALUES ('Grocery shopping', 'Buy groceries for the week', '2024-07-01', '2024-07-01', 2, 1, 0);
+INSERT INTO task (name, description, created_at, updated_at, category_id, user_id, done) VALUES ('Learn guitar', 'Practice guitar lessons', '2024-07-01', '2024-07-01', 5, 1, 0);
+
+UNLOCK TABLES;

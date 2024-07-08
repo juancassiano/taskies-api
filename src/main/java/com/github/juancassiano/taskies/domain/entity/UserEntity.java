@@ -1,5 +1,7 @@
 package com.github.juancassiano.taskies.domain.entity;
 
+import java.util.List;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.github.juancassiano.taskies.api.dto.input.UserLoginInputDTO;
@@ -34,6 +36,12 @@ public class UserEntity {
 
     @Column(nullable = false, unique = true)
     private String username;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<TaskEntity> tasks;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<CategoryEntity> categories;
 
     public boolean isLoginCorrect(UserLoginInputDTO userLoginInputDTO, PasswordEncoder passwordEncoder) {
         return passwordEncoder.matches(userLoginInputDTO.getPassword(), this.password);

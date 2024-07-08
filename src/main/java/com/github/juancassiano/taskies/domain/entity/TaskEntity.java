@@ -38,11 +38,15 @@ public class TaskEntity {
 
     private LocalDate updated_at;
 
+    private Boolean done = Boolean.FALSE;
+
     @ManyToOne
     @JoinColumn(name = "category_id")
     private CategoryEntity category;
 
-    private Boolean done = Boolean.FALSE;
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private UserEntity user;
 
     @PrePersist
     private void onCreate(){

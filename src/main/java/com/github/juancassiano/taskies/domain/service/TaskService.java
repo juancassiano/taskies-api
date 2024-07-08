@@ -2,12 +2,14 @@ package com.github.juancassiano.taskies.domain.service;
 
 import java.util.List;
 
+import org.springframework.boot.autoconfigure.security.SecurityProperties.User;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.github.juancassiano.taskies.domain.entity.CategoryEntity;
 import com.github.juancassiano.taskies.domain.entity.TaskEntity;
+import com.github.juancassiano.taskies.domain.entity.UserEntity;
 import com.github.juancassiano.taskies.domain.exception.CategoryNotFoundException;
 import com.github.juancassiano.taskies.domain.exception.EntityInUseException;
 import com.github.juancassiano.taskies.domain.exception.TaskNotFoundException;
@@ -20,17 +22,20 @@ import jakarta.transaction.Transactional;
 public class TaskService {
   private TaskRepository taskRepository;
   private CategoryRepository categoryRepository;
+  private UserService userService;
 
   String MSG_TASK_IN_USE = "Task com ID %d não pode ser removida pois está em uso";
 
 
-  public TaskService(TaskRepository taskRepository, CategoryRepository categoryRepository) {
+  public TaskService(TaskRepository taskRepository, CategoryRepository categoryRepository, UserService userService) {
     this.taskRepository = taskRepository;
     this.categoryRepository = categoryRepository;
+    this.userService = userService;
   }
 
   @Transactional
-  public TaskEntity createTask(TaskEntity task) {
+  public TaskEntity createTask(TaskEntity task, Long userId) {
+    UserEntity user = userService.findUsernameById(userId);
     Long categoryId = task.getCategory().getId();
     CategoryEntity category = categoryRepository.findById(categoryId)
             .orElseThrow(() -> new CategoryNotFoundException(categoryId));
@@ -39,6 +44,7 @@ public class TaskService {
     taskCreated.setName(task.getName());
     taskCreated.setDescription(task.getDescription());
     taskCreated.setCategory(category);
+    taskCreated.setUser(user);
     
     return taskRepository.save(taskCreated);  
   }

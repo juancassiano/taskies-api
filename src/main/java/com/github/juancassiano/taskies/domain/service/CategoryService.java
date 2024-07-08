@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import com.github.juancassiano.taskies.domain.entity.CategoryEntity;
@@ -20,7 +22,7 @@ public class CategoryService{
   String CATEGORY_ALREADY_EXISTS = "Category with name %s already exists";
   
   private CategoryRepository categoryRepository;
-
+  
   public CategoryService(CategoryRepository categoryRepository) {
     this.categoryRepository = categoryRepository;
   }

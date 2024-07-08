@@ -49,9 +49,9 @@ public class TaskController {
 
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
-  public TaskDTO createTask(@RequestBody @Valid TaskInputDTO taskInputDTO) {
+  public TaskDTO createTask(@RequestBody @Valid TaskInputDTO taskInputDTO, @RequestParam Long userId) {
       TaskEntity newTask = taskMapper.toDomainTask(taskInputDTO);
-      newTask = taskService.createTask(newTask);
+      newTask = taskService.createTask(newTask, userId);
       return taskMapper.toTaskDTO(newTask);
   }
 

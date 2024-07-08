@@ -15,7 +15,7 @@ Authorization: Bearer {{ authenticate.response.body.accessToken }}
 
 
 {
-  "name": "Casa"
+  "name": "Teste",
 }
 
 ###
@@ -38,7 +38,8 @@ Authorization: Bearer {{ authenticate.response.body.accessToken }}
 {
   "name": "Limpar a Casa",
   "description": "Não se esqueça de lavar a louça",
-  "categoryId": 1
+  "categoryId": 1,
+  "userId": 1
 }
 
 
@@ -95,3 +96,17 @@ Content-Type: application/json
   "username": "joao",
   "password": "123456"
 }
+
+
+###
+POST http://localhost:8080/login
+Content-Type: application/json
+
+{
+  "username": "juancassiano",
+  "password": "password"
+}
+
+###
+GET http://localhost:8080/categories/test
+Authorization: Bearer {{ authenticate.response.body.accessToken }}
