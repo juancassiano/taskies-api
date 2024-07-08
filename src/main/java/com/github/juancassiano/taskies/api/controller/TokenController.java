@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 
 import com.github.juancassiano.taskies.api.dto.input.UserLoginInputDTO;
 import com.github.juancassiano.taskies.api.dto.model.UserLoginDTO;
-import com.github.juancassiano.taskies.api.mapper.UserMapper;
 import com.github.juancassiano.taskies.domain.entity.UserEntity;
 import com.github.juancassiano.taskies.domain.service.UserService;
 
@@ -23,13 +22,11 @@ public class TokenController {
   private final JwtEncoder jwtEncoder;
   private final UserService userService;
   private final BCryptPasswordEncoder passwordEncoder;
-  private UserMapper userMapper;
 
-  public TokenController(JwtEncoder jwtEncoder, UserService userService,BCryptPasswordEncoder passwordEncoder,UserMapper userMapper) {
+  public TokenController(JwtEncoder jwtEncoder, UserService userService,BCryptPasswordEncoder passwordEncoder) {
     this.jwtEncoder = jwtEncoder;
     this.userService = userService;
     this.passwordEncoder = passwordEncoder;
-    this.userMapper = userMapper;
   }
 
   @PostMapping("")
